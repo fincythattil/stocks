@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+</head>       	
+<h2 align="center">Stock Price List</h2>
+<table width= "35%" align="center" border="1" id="table-stockprice">
+{% if object_list %}    
+    <tr>
+        <th colspan="4" align="left">
+              {{stockName}}	
+        </th>
+    </tr>
+    <tr>
+        <th>
+            Date
+        </th>
+         <th>
+            Open
+        </th>
+         <th>
+            Close
+        </th>
+         <th>
+            % Change
+        </th> 
+    </tr>
+ {% for stockprices in object_list %}
+    <tr>
+       <td>
+            {{ stockprices.stock_date }}	
+        </td>   
+      
+        <td align="center">
+            {{ stockprices.stock_open }}	
+        </td>
+         <td align="center">
+            {{ stockprices.stock_close }}	
+        </td>
+        <td align="center">
+            {% for change in percentage_change %}
+              {% if forloop.counter == forloop.parentloop.counter  %}
+                {% widthratio change stockprices.stock_open 100 %}
+               {% endif %}
+             {% endfor %}
+        </td>
+    </tr>
+ {% endfor %}
+{% endif %}  
+</table>
+
+
+
+<h2 align="center">Stock Volume</h2>
+<table width= "35%" align="center" border="1" id="table-stockvolume">
+{% if volumelist %}   
+    <tr>
+        <th colspan="4" align="left">
+             Top 5 volumes of {{stockName}}	
+        </th>
+    </tr>
+    <tr>
+        <th>
+          Date
+        </th>
+         <th>
+          Volume
+        </th>        
+    </tr>
+    
+ {% for stockprices in volumelist %}
+    <tr>
+       <td>
+            {{ stockprices.stock_date }}	
+        </td>   
+      
+        <td align="center">
+            {{ stockprices.stock_volume }}	
+        </td>         
+    </tr>
+    {% endfor %}
+    
+    
+{% endif %}  
+</table>
+</html>
